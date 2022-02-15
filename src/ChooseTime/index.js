@@ -13,10 +13,12 @@ export function ChooseTime() {
     { zone: "Pacific/Auckland" }
   );
 
-  const ukDt = DateTime.fromObject(
-    { day: day, hour: hour, minute: min },
-    { zone: "Europe/London" }
-  );
+  const ukDt = dt.setZone("Europe/London");
+
+  // const ukDt = DateTime.fromObject(
+  //   { day: day, hour: hour, minute: min },
+  //   { zone: "Europe/London" }
+  // );
 
   function onChange(value, dateString) {
     console.log("Selected Time: ", value);
