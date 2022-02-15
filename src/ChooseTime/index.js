@@ -3,6 +3,7 @@ import "antd/dist/antd.css";
 import { DateTime } from "luxon";
 import { useState, useEffect } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import css from "./index.module.css";
 
 export function ChooseTime() {
   const [copied, setCopied] = useState(false);
@@ -57,24 +58,33 @@ export function ChooseTime() {
   }, [copyChange]);
 
   return (
-    <Space direction="horizontal" size={16}>
-      <DatePicker showTime onChange={onChange} onOk={onOk} />
-      <CopyToClipboard onCopy={onCopy} text={copyValue}>
-        <h2 onClick={copyChange}>{`Game Time in NZ: ${dt.toLocaleString(
-          DateTime.DATETIME_MED
-        )},   Game Time in UK: ${ukDt.toLocaleString(
-          DateTime.DATETIME_MED
-        )}`}</h2>
-      </CopyToClipboard>
+    <Space className={css.date} direction="vertical" size={16}>
+      <DatePicker
+        showTime
+        onChange={onChange}
+        onOk={onOk}
+        placeholder={"Choose Dale Time"}
+        className={css.datePicker}
+      />
       <section className="section">
         {copied ? (
           <span style={{ color: "red" }}>Copied!</span>
         ) : (
           <span style={{ color: "red" }}>
-            Click times to copy to clipboard.
+            Click times to copy to clipboard:
           </span>
         )}
       </section>
+      <CopyToClipboard onCopy={onCopy} text={copyValue}>
+        <h2
+          className={css.date}
+          onClick={copyChange}
+        >{`Game Time in NZ: ${dt.toLocaleString(
+          DateTime.DATETIME_MED
+        )},   Game Time in UK: ${ukDt.toLocaleString(
+          DateTime.DATETIME_MED
+        )}`}</h2>
+      </CopyToClipboard>
     </Space>
   );
 }
